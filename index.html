@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111214">
+  <meta name="description" content="Fan-made Fromm message archive for Sunwoo of THE BOYZ. Search messages, browse dates, and view media or voice messages.">
+  <meta property="og:title" content="Sunwoo Fromm Archive">
+  <meta property="og:description" content="Fan-made searchable archive of Fromm messages.">
+  <meta property="og:type" content="website">
+  <title>Sunwoo Fromm Archive</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <link rel="stylesheet" href="css/stats.css">
+  <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Archive home">
+      <img class="brand__avatar" id="brandAvatar" src="assets/avatar/sunwoo-placeholder.svg" alt="">
+      <span class="brand__text"><strong id="brandName">SUNWOO</strong><small>Fromm Archive</small></span>
+    </a>
+    <nav class="topbar__actions" aria-label="Archive controls">
+      <button class="icon-button" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false"><span aria-hidden="true">⌕</span></button>
+      <button class="icon-button" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    </nav>
+  </header>
+
+  <div class="search-panel" id="searchPanel" hidden>
+    <form class="search-panel__form" role="search" onsubmit="return false;">
+      <label class="sr-only" for="archiveSearch">Search messages</label>
+      <input id="archiveSearch" type="search" placeholder="Search messages…" autocomplete="off">
+      <button class="search-panel__close" id="searchClose" type="button" aria-label="Close search">×</button>
+    </form>
+    <p class="search-panel__hint"><span id="searchCount">Type a word or phrase.</span></p>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Archive menu">
+    <div class="drawer__header"><div><p class="eyebrow">Archive menu</p><h2>Browse</h2></div><button class="drawer__close" id="menuClose" type="button" aria-label="Close menu">×</button></div>
+    <nav class="drawer__nav">
+      <button class="drawer-link" type="button" data-open-search><span>Search</span><small>Find a message</small></button>
+      <button class="drawer-link" type="button" id="calendarToggle"><span>Calendar</span><small>Filter by date</small></button>
+      <a class="drawer-link" href="pages/media.html"><span>Media gallery</span><small>Photos & videos</small></a>
+      <a class="drawer-link" href="pages/audio.html"><span>Audio gallery</span><small>Voice messages</small></a>
+      <button class="drawer-link" type="button" id="randomMessage"><span>Random message</span><small>Jump somewhere in the archive</small></button>
+      <a class="drawer-link" href="pages/statistics.html"><span>Statistics</span><small>Monthly archive totals</small></a>
+      <a class="drawer-link" href="pages/about.html"><span>About</span><small>Archive information</small></a>
+    </nav>
+    <div class="drawer__footer"><p>This is a fan-made archive and is not affiliated with Fromm or THE BOYZ.</p></div>
+  </aside>
+
+  <main class="archive-shell">
+    <section class="archive-hero" aria-labelledby="archiveTitle">
+      <p class="eyebrow" id="archiveSubtitle">Fan-made message archive</p>
+      <h1 id="archiveTitle">Sunwoo Fromm Archive</h1>
+      <p class="archive-hero__copy">Search messages, browse by date, and open photos, videos or voice messages — all generated automatically from <code>data/messages.json</code>.</p>
+    </section>
+
+    <section class="month-summary" aria-label="Monthly summary">
+      <div><p class="eyebrow">Monthly total</p><h2 id="monthLabel">—</h2></div>
+      <div class="month-summary__stats">
+        <p class="month-summary__count"><strong id="monthlyCount">0</strong> messages</p>
+        <p id="monthlyBreakdown" class="month-summary__breakdown">0 photos · 0 videos · 0 voice messages</p>
+      </div>
+    </section>
+
+    <section class="filter-bar" aria-label="Date filters">
+      <div class="filter-bar__group">
+        <label for="yearFilter">Year</label>
+        <select id="yearFilter"><option value="">All</option></select>
+      </div>
+      <div class="filter-bar__group">
+        <label for="monthFilter">Month</label>
+        <select id="monthFilter"><option value="">All</option></select>
+      </div>
+      <div class="filter-bar__group filter-bar__group--date">
+        <label for="dateFilter">Exact date</label>
+        <input id="dateFilter" type="date">
+      </div>
+      <button class="filter-reset" id="clearFilters" type="button">Clear filters</button>
+    </section>
+
+    <div id="activeFilter" class="active-filter" hidden></div>
+
+    <div id="archiveRoot" aria-live="polite">
+      <p class="loading-state">Loading archive…</p>
+    </div>
+
+    <div class="archive-load-controls" id="archiveLoadControls" hidden>
+      <p id="archiveLoadStatus"></p>
+      <button id="loadMoreDays" type="button">Load more days</button>
+    </div>
+
+    <noscript><p class="error-state">JavaScript is required to display this archive.</p></noscript>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Media viewer">
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close media viewer">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="Previous media">‹</button>
+    <div class="lightbox__stage" id="lightboxStage"></div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="Next media">›</button>
+    <p class="lightbox__caption" id="lightboxCaption"></p>
+  </div>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/helpers.js" defer></script>
+  <script src="js/render.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/search.js" defer></script>
+  <script src="js/filters.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/statistics.js" defer></script>
+  <script src="js/performance.js" defer></script>
+  <script src="js/random.js" defer></script>
+  <script src="js/lightbox.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/deep-links.js" defer></script>
+</body>
+</html>
