@@ -1,0 +1,51 @@
+.gallery-shell{width:min(100% - 28px,1180px);margin:0 auto;padding:58px 0 100px}
+.gallery-hero{padding:0 4px 34px}
+.gallery-hero h1{margin:0;font-size:clamp(2.2rem,7vw,4.8rem);letter-spacing:-.06em;line-height:.96}
+.gallery-hero p:not(.eyebrow){max-width:48rem;color:var(--muted)}
+.gallery-toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end;margin-bottom:18px;padding:16px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.025)}
+.gallery-filter{display:grid;gap:6px}
+.gallery-filter label{color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.gallery-filter select,.gallery-filter input{width:100%;height:44px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:#15171b;color:var(--text)}
+.gallery-count{margin:18px 2px;color:var(--muted);font-size:.84rem}
+.media-grid{columns:4 240px;column-gap:14px}
+.media-card{position:relative;display:block;width:100%;margin:0 0 14px;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface);break-inside:avoid;cursor:pointer}
+.media-card img,.media-card video{display:block;width:100%;height:auto;background:#0e0f11}
+.media-card__overlay{position:absolute;inset:auto 0 0;display:flex;justify-content:space-between;gap:10px;padding:28px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.84));color:#fff;font-size:.75rem}
+.media-card__type{padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px)}
+.media-card__date{align-self:center}
+.media-card[hidden]{display:none!important}
+.media-empty,.audio-empty{padding:40px 20px;border:1px dashed var(--line);border-radius:22px;color:var(--muted);text-align:center}
+.audio-list{display:grid;gap:14px}
+.audio-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 18px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.025)}
+.audio-card__icon{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);font-size:1.2rem}
+.audio-card__body{min-width:0}
+.audio-card__title{margin:0 0 8px;font-weight:800}
+.audio-card audio{width:100%}
+.audio-card__meta{color:var(--muted);font-size:.78rem;text-align:right}
+.audio-card__link{display:inline-block;margin-top:6px;color:#d7dae0;text-decoration:underline;text-underline-offset:3px}
+.message-media{position:relative;border:0;padding:0;text-align:left;color:inherit}
+.media-open{cursor:zoom-in}
+.media-expand{position:absolute;right:8px;bottom:8px;width:36px;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(0,0,0,.6);color:#fff;cursor:pointer}
+.lightbox{position:fixed;z-index:200;inset:0;display:grid;grid-template-columns:72px minmax(0,1fr) 72px;grid-template-rows:1fr auto;align-items:center;background:rgba(5,6,8,.95);backdrop-filter:blur(18px)}
+.lightbox[hidden]{display:none}
+.lightbox__stage{grid-column:2;display:grid;place-items:center;min-width:0;min-height:0;padding:70px 10px 28px}
+.lightbox__stage img,.lightbox__stage video{max-width:min(1100px,88vw);max-height:78vh;border-radius:16px;box-shadow:0 24px 90px rgba(0,0,0,.55)}
+.lightbox__stage video{width:min(1100px,88vw);background:#000}
+.lightbox__close{position:absolute;top:18px;right:18px;width:48px;height:48px;border:1px solid rgba(255,255,255,.16);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:2rem;cursor:pointer}
+.lightbox__nav{width:52px;height:52px;justify-self:center;border:1px solid rgba(255,255,255,.14);border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:2rem;cursor:pointer}
+.lightbox__nav:disabled{opacity:.25;cursor:default}
+.lightbox__nav--prev{grid-column:1;grid-row:1}
+.lightbox__nav--next{grid-column:3;grid-row:1}
+.lightbox__caption{grid-column:1/-1;grid-row:2;margin:0;padding:0 20px 24px;color:#cfd3da;text-align:center}
+body.lightbox-open{overflow:hidden}
+@media(max-width:760px){
+  .gallery-toolbar{grid-template-columns:1fr 1fr}
+  .gallery-toolbar .filter-reset{grid-column:1/-1}
+  .media-grid{columns:2 150px;column-gap:10px}
+  .media-card{margin-bottom:10px;border-radius:14px}
+  .audio-card{grid-template-columns:42px minmax(0,1fr)}
+  .audio-card__meta{grid-column:2;text-align:left}
+  .lightbox{grid-template-columns:48px minmax(0,1fr) 48px}
+  .lightbox__stage{padding-inline:0}
+  .lightbox__nav{width:40px;height:40px}
+}

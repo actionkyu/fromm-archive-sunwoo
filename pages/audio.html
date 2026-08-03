@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111214">
+  <title>Audio Gallery · Sunwoo Fromm Archive</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/controls.css">
+  <link rel="stylesheet" href="../css/gallery.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="simple-header">
+    <a href="../index.html">← Archive</a>
+    <strong>Audio Gallery</strong>
+  </header>
+
+  <main class="gallery-shell">
+    <section class="gallery-hero">
+      <p class="eyebrow">Voice messages</p>
+      <h1>Audio Gallery</h1>
+      <p>Voice messages play directly in the browser without downloading.</p>
+    </section>
+
+    <section class="gallery-toolbar" aria-label="Audio filters">
+      <div class="gallery-filter">
+        <label for="audioYearFilter">Year</label>
+        <select id="audioYearFilter"><option value="">All years</option></select>
+      </div>
+      <div class="gallery-filter">
+        <label for="audioMonthFilter">Month</label>
+        <select id="audioMonthFilter"><option value="">All months</option></select>
+      </div>
+      <div class="gallery-filter">
+        <label for="audioDateFilter">Exact date</label>
+        <input id="audioDateFilter" type="date">
+      </div>
+      <button id="audioClearFilters" class="filter-reset" type="button">Clear filters</button>
+    </section>
+
+    <p class="gallery-count" id="audioCount">Loading audio…</p>
+    <section class="audio-list" id="audioList" aria-live="polite"></section>
+  </main>
+
+  <button class="back-to-top is-visible" id="backToTop" type="button" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../js/helpers.js" defer></script>
+  <script src="../js/audio-gallery.js" defer></script>
+  <script src="../js/ui-pages.js" defer></script>
+</body>
+</html>

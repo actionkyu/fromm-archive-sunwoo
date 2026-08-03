@@ -1,0 +1,10 @@
+(()=>{"use strict";
+const year=document.querySelector("#yearFilter"),month=document.querySelector("#monthFilter"),date=document.querySelector("#dateFilter"),clear=document.querySelector("#clearFilters"),active=document.querySelector("#activeFilter");
+function populate(){const dates=window.ArchiveData?.dates||[];const years=[...new Set(dates.map(d=>d.slice(0,4)))];year.innerHTML='<option value="">All</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join("");month.innerHTML='<option value="">All</option>'+Array.from({length:12},(_,i)=>{const n=String(i+1).padStart(2,"0");const label=new Intl.DateTimeFormat("en-GB",{month:"long"}).format(new Date(2026,i,1));return `<option value="${n}">${label}</option>`}).join("")}
+function apply(){const y=year.value,m=month.value,d=date.value;document.querySelectorAll(".chat-day").forEach(day=>{const dayDate=day.dataset.date;const filterMatch=(!y||dayDate.startsWith(y))&&(!m||dayDate.slice(5,7)===m)&&(!d||dayDate===d);const searchMatch=Array.from(day.querySelectorAll(".message")).some(msg=>!msg.hidden);day.hidden=!(filterMatch&&searchMatch);day.dataset.filteredOut=day.hidden?"1":"0"});const parts=[];if(y)parts.push(`year ${y}`);if(m)parts.push(`month ${month.options[month.selectedIndex].text}`);if(d)parts.push(d);active.hidden=!parts.length;active.textContent=parts.length?`Showing: ${parts.join(" · ")}`:"";document.dispatchEvent(new CustomEvent("archive:visibility-changed"))}
+[year,month,date].forEach(el=>el?.addEventListener("change",apply));
+clear?.addEventListener("click",()=>{year.value="";month.value="";date.value="";apply()});
+document.querySelector("#calendarToggle")?.addEventListener("click",()=>{document.querySelector("#menuClose")?.click();date?.showPicker?.();date?.focus()});
+document.addEventListener("archive:rendered",()=>{populate();apply()});
+document.addEventListener("archive:visibility-changed",()=>{});
+})();

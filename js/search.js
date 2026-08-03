@@ -1,0 +1,9 @@
+(()=>{"use strict";
+const input=document.querySelector("#archiveSearch");
+const count=document.querySelector("#searchCount");
+function clearHighlights(node){node.querySelectorAll("mark.search-result-highlight").forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent)));node.normalize()}
+function highlight(node,query){clearHighlights(node);if(!query)return;const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const textNode of nodes){const text=textNode.nodeValue;const i=text.toLocaleLowerCase().indexOf(query);if(i<0)continue;const frag=document.createDocumentFragment();frag.append(text.slice(0,i));const mark=document.createElement("mark");mark.className="search-result-highlight";mark.textContent=text.slice(i,i+query.length);frag.append(mark,text.slice(i+query.length));textNode.replaceWith(frag)}}
+function run(){const q=(input?.value||"").trim().toLocaleLowerCase();let matches=0;document.querySelectorAll(".message").forEach(message=>{const visible=!q||message.dataset.search.includes(q);message.hidden=!visible;if(visible&&q){matches++;highlight(message.querySelector(".bubble"),q)}else clearHighlights(message.querySelector(".bubble"))});document.querySelectorAll(".chat-day").forEach(day=>{day.hidden=!Array.from(day.querySelectorAll(".message")).some(m=>!m.hidden)});if(count)count.textContent=q?`${matches} result${matches===1?"":"s"}`:"Type a word or phrase.";document.dispatchEvent(new CustomEvent("archive:visibility-changed"))}
+input?.addEventListener("input",run);
+document.addEventListener("archive:rendered",run);
+})();

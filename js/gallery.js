@@ -1,0 +1,16 @@
+(()=>{"use strict";
+const grid=document.querySelector("#mediaGrid"),count=document.querySelector("#mediaCount");
+const typeFilter=document.querySelector("#mediaTypeFilter"),yearFilter=document.querySelector("#mediaYearFilter"),monthFilter=document.querySelector("#mediaMonthFilter"),clear=document.querySelector("#mediaClearFilters");
+let media=[];
+function esc(v=""){return window.ArchiveHelpers.escapeHTML(v)}
+function card(item){const m=item.media||{};const thumb=item.type==="image"
+?`<img src="../${esc(m.src)}" alt="${esc(m.alt||item.text||"Archive image")}" loading="lazy" decoding="async">`
+:`<video muted preload="metadata" playsinline ${m.poster?`poster="../${esc(m.poster)}"`:""}><source src="../${esc(m.src)}" type="video/mp4"></video>`;
+return `<button class="media-card" type="button" data-type="${esc(item.type)}" data-date="${esc(item.date)}" data-lightbox-src="../${esc(m.src)}" data-lightbox-type="${esc(item.type)}" data-lightbox-caption="${esc(item.text||"")}">${thumb}<span class="media-card__overlay"><span class="media-card__type">${item.type==="image"?"PHOTO":"VIDEO"}</span><span class="media-card__date">${esc(item.date)} · ${esc(item.time)}</span></span></button>`}
+function populateFilters(){const years=[...new Set(media.map(m=>m.date.slice(0,4)))];yearFilter.innerHTML='<option value="">All years</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join("");monthFilter.innerHTML='<option value="">All months</option>'+Array.from({length:12},(_,i)=>{const n=String(i+1).padStart(2,"0");const label=new Intl.DateTimeFormat("en-GB",{month:"long"}).format(new Date(2026,i,1));return `<option value="${n}">${label}</option>`}).join("")}
+function apply(){const t=typeFilter.value,y=yearFilter.value,m=monthFilter.value;let shown=0;grid.querySelectorAll(".media-card").forEach(card=>{const visible=(!t||card.dataset.type===t)&&(!y||card.dataset.date.startsWith(y))&&(!m||card.dataset.date.slice(5,7)===m);card.hidden=!visible;if(visible)shown++});count.textContent=`${shown} media item${shown===1?"":"s"}`;if(!shown&&!grid.querySelector(".media-empty"))grid.insertAdjacentHTML("beforeend",'<p class="media-empty">No media matches these filters.</p>');grid.querySelector(".media-empty")?.toggleAttribute("hidden",shown>0);document.dispatchEvent(new CustomEvent("gallery:changed"))}
+async function init(){try{const res=await fetch("../data/messages.json",{cache:"no-store"});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();media=[...(data.messages||[])].filter(m=>m.type==="image"||m.type==="video").sort((a,b)=>`${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`));grid.innerHTML=media.map(card).join("");populateFilters();apply();document.dispatchEvent(new CustomEvent("gallery:rendered"))}catch(e){grid.innerHTML=`<p class="media-empty">Could not load media: ${esc(e.message)}</p>`;count.textContent="Media unavailable"}}
+[typeFilter,yearFilter,monthFilter].forEach(el=>el.addEventListener("change",apply));
+clear.addEventListener("click",()=>{typeFilter.value="";yearFilter.value="";monthFilter.value="";apply()});
+addEventListener("DOMContentLoaded",init);
+})();

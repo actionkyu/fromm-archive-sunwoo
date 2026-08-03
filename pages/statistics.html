@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111214">
+  <title>Statistics · Sunwoo Fromm Archive</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/controls.css">
+  <link rel="stylesheet" href="../css/stats.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="simple-header">
+    <a href="../index.html">← Archive</a>
+    <strong>Statistics</strong>
+  </header>
+
+  <main class="stats-shell">
+    <section class="stats-hero">
+      <p class="eyebrow">Archive overview</p>
+      <h1>Monthly Statistics</h1>
+      <p>Automatically generated from <code>data/messages.json</code>.</p>
+    </section>
+
+    <section class="stats-summary" id="statsSummary" aria-live="polite">
+      <p class="loading-state">Loading statistics…</p>
+    </section>
+
+    <section>
+      <div class="stats-section-heading">
+        <div>
+          <p class="eyebrow">By month</p>
+          <h2>Archive activity</h2>
+        </div>
+        <select id="statsYearFilter" aria-label="Filter statistics by year">
+          <option value="">All years</option>
+        </select>
+      </div>
+
+      <div class="stats-table-wrap">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Messages</th>
+              <th>Photos</th>
+              <th>Videos</th>
+              <th>Audio</th>
+              <th>Active days</th>
+            </tr>
+          </thead>
+          <tbody id="statsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <button class="back-to-top is-visible" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+  <script src="../js/helpers.js" defer></script>
+  <script src="../js/statistics-page.js" defer></script>
+  <script src="../js/ui-pages.js" defer></script>
+</body>
+</html>

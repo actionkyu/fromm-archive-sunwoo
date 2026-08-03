@@ -1,0 +1,13 @@
+(()=>{"use strict";
+const list=document.querySelector("#audioList"),count=document.querySelector("#audioCount");
+const yearFilter=document.querySelector("#audioYearFilter"),monthFilter=document.querySelector("#audioMonthFilter"),dateFilter=document.querySelector("#audioDateFilter"),clear=document.querySelector("#audioClearFilters");
+let items=[];
+const esc=v=>window.ArchiveHelpers.escapeHTML(v??"");
+function card(item){const src=item.media?.src||"";return `<article class="audio-card" data-date="${esc(item.date)}"><div class="audio-card__icon" aria-hidden="true">🎙</div><div class="audio-card__body"><p class="audio-card__title">${esc(item.text||"Voice message")}</p><audio controls preload="none"><source src="../${esc(src)}">Your browser does not support this audio.</audio></div><div class="audio-card__meta"><div>${esc(item.date)}</div><div>${esc(item.time)}</div><a class="audio-card__link" href="../index.html#msg-${esc(item.id)}">Open message</a></div></article>`}
+function populate(){const years=[...new Set(items.map(i=>i.date.slice(0,4)))];yearFilter.innerHTML='<option value="">All years</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join("");monthFilter.innerHTML='<option value="">All months</option>'+Array.from({length:12},(_,i)=>{const n=String(i+1).padStart(2,"0");const label=new Intl.DateTimeFormat("en-GB",{month:"long"}).format(new Date(2026,i,1));return `<option value="${n}">${label}</option>`}).join("")}
+function apply(){const y=yearFilter.value,m=monthFilter.value,d=dateFilter.value;let shown=0;list.querySelectorAll(".audio-card").forEach(card=>{const dt=card.dataset.date;const visible=(!y||dt.startsWith(y))&&(!m||dt.slice(5,7)===m)&&(!d||dt===d);card.hidden=!visible;if(visible)shown++});count.textContent=`${shown} voice message${shown===1?"":"s"}`;if(!shown&&!list.querySelector(".audio-empty"))list.insertAdjacentHTML("beforeend",'<p class="audio-empty">No audio messages match these filters.</p>');list.querySelector(".audio-empty")?.toggleAttribute("hidden",shown>0)}
+async function init(){try{const res=await fetch("../data/messages.json",{cache:"no-store"});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();items=[...(data.messages||[])].filter(m=>m.type==="audio").sort((a,b)=>`${b.date}T${b.time}`.localeCompare(`${a.date}T${a.time}`));list.innerHTML=items.map(card).join("");populate();apply()}catch(e){list.innerHTML=`<p class="audio-empty">Could not load audio: ${esc(e.message)}</p>`;count.textContent="Audio unavailable"}}
+[yearFilter,monthFilter,dateFilter].forEach(el=>el.addEventListener("change",apply));
+clear.addEventListener("click",()=>{yearFilter.value="";monthFilter.value="";dateFilter.value="";apply()});
+addEventListener("DOMContentLoaded",init);
+})();

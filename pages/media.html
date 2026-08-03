@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111214">
+  <title>Media Gallery · Sunwoo Fromm Archive</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/controls.css">
+  <link rel="stylesheet" href="../css/gallery.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="simple-header">
+    <a href="../index.html">← Archive</a>
+    <strong>Media Gallery</strong>
+  </header>
+
+  <main class="gallery-shell">
+    <section class="gallery-hero">
+      <p class="eyebrow">Photos & videos</p>
+      <h1>Media Gallery</h1>
+      <p>All image and video messages are generated automatically from <code>data/messages.json</code>.</p>
+    </section>
+
+    <section class="gallery-toolbar" aria-label="Media filters">
+      <div class="gallery-filter">
+        <label for="mediaTypeFilter">Type</label>
+        <select id="mediaTypeFilter">
+          <option value="">All media</option>
+          <option value="image">Photos</option>
+          <option value="video">Videos</option>
+        </select>
+      </div>
+      <div class="gallery-filter">
+        <label for="mediaYearFilter">Year</label>
+        <select id="mediaYearFilter"><option value="">All years</option></select>
+      </div>
+      <div class="gallery-filter">
+        <label for="mediaMonthFilter">Month</label>
+        <select id="mediaMonthFilter"><option value="">All months</option></select>
+      </div>
+      <button id="mediaClearFilters" class="filter-reset" type="button">Clear filters</button>
+    </section>
+
+    <p class="gallery-count" id="mediaCount">Loading media…</p>
+    <section class="media-grid" id="mediaGrid" aria-live="polite"></section>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Media viewer">
+    <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close media viewer">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="Previous media">‹</button>
+    <div class="lightbox__stage" id="lightboxStage"></div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="Next media">›</button>
+    <p class="lightbox__caption" id="lightboxCaption"></p>
+  </div>
+
+  <button class="back-to-top is-visible" id="backToTop" type="button" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../js/helpers.js" defer></script>
+  <script src="../js/gallery.js" defer></script>
+  <script src="../js/lightbox.js" defer></script>
+  <script src="../js/ui-pages.js" defer></script>
+</body>
+</html>

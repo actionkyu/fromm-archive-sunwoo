@@ -1,0 +1,19 @@
+{
+  "site": {
+    "title": "Sunwoo Fromm Archive",
+    "language": "en",
+    "theme": "dark",
+    "repositoryUrl": "",
+    "contactUrl": ""
+  },
+  "archive": {
+    "artist": "SUNWOO",
+    "group": "THE BOYZ",
+    "progressiveDays": 30,
+    "progressiveStep": 30
+  },
+  "publishing": {
+    "showDisclaimer": true,
+    "allowSearchIndexing": true
+  }
+}

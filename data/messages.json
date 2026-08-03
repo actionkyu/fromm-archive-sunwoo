@@ -1,0 +1,77 @@
+{
+  "profile": {
+    "displayName": "SUNWOO",
+    "avatar": "assets/avatar/sunwoo.jpg"
+  },
+  "archive": {
+    "title": "Sunwoo Fromm Archive",
+    "subtitle": "Fan-made message archive",
+    "defaultLocale": "en-GB"
+  },
+  "messages": [
+    {
+      "id": "20260803-001",
+      "date": "2026-08-03",
+      "time": "15:22",
+      "type": "text",
+      "text": "오늘도 잘 지냈어? 🖤"
+    },
+    {
+      "id": "20260803-002",
+      "date": "2026-08-03",
+      "time": "15:29",
+      "type": "text",
+      "quote": {
+        "label": "Replying to a fan",
+        "text": "어렸을 때 손이 이렇게 컸어, 하하"
+      },
+      "text": "맞아 ㅋㅋㅋ"
+    },
+    {
+      "id": "20260803-003",
+      "date": "2026-08-03",
+      "time": "15:31",
+      "type": "image",
+      "text": "이 사진 좋아",
+      "media": {
+        "src": "media/photos/2026-08-03/sample-photo.svg",
+        "alt": "Sample archive image"
+      }
+    },
+    {
+      "id": "20260803-004",
+      "date": "2026-08-03",
+      "time": "15:34",
+      "type": "video",
+      "text": "짧은 영상 🎬",
+      "media": {
+        "src": "media/videos/2026-08-03/sample-video.mp4",
+        "poster": "media/photos/2026-08-03/sample-photo.svg"
+      }
+    },
+    {
+      "id": "20260803-005",
+      "date": "2026-08-03",
+      "time": "15:38",
+      "type": "audio",
+      "text": "음성 메시지",
+      "media": {
+        "src": "media/audio/2026-08-03/sample-voice.wav"
+      }
+    },
+    {
+      "id": "20260802-001",
+      "date": "2026-08-02",
+      "time": "22:08",
+      "type": "text",
+      "text": "밥 꼭 챙겨 먹어"
+    },
+    {
+      "id": "20260802-002",
+      "date": "2026-08-02",
+      "time": "23:51",
+      "type": "text",
+      "text": "잘 자 🌙"
+    }
+  ]
+}

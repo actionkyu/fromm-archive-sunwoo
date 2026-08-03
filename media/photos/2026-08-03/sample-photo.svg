@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20242b"/><stop offset="1" stop-color="#5b616c"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+<circle cx="900" cy="220" r="120" fill="#d8dbe1" opacity=".28"/>
+<path d="M0 780 300 470 520 650 720 430 1200 820v80H0Z" fill="#111318" opacity=".78"/>
+<text x="70" y="120" fill="#f4f5f7" font-family="Arial,sans-serif" font-size="72" font-weight="700">Sample archive photo</text>
+<text x="70" y="190" fill="#c8ccd3" font-family="Arial,sans-serif" font-size="34">Replace this file with your own media.</text>
+</svg>
